@@ -6,3 +6,4 @@ cypress/logs/
 .cypress_cache/          
 package-lock.json        
 .DS_Store
+cypress.env.json
