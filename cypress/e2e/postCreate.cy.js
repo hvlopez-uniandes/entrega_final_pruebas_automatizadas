@@ -51,7 +51,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         settingsDeleteContent.thenSettingsShouldDeleted(); 
     });
 
-    it('EP001 - Debería permitir crear una página con extracto (Aleatorio)', () => {
+    it('EP001 - Debería permitir crear un post con extracto (Aleatorio)', () => {
 
         const postTitle = faker.lorem.sentence();         
         const postContent = faker.lorem.paragraph();
@@ -68,7 +68,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(postTitle);
     });
 
-    it('EP002 - Debería permitir crear una página con extracto (A-priori)', () => {
+    it('EP002 - Debería permitir crear un post con extracto (A-priori)', () => {
        
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
@@ -80,7 +80,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(aPrioriData[aPrioriRowIndex].title);
     });
 
-    it('EP003 - Debería permitir crear una página con extracto (Pseudo-aleatorio)', () => {
+    it('EP003 - Debería permitir crear un post con extracto (Pseudo-aleatorio)', () => {
        
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
@@ -92,7 +92,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
     });
 
-    it('EP004 - Debería permitir crear una página con tipo de acceso de post (Aleatorio)', () => {
+    it('EP004 - Debería permitir crear un post con tipo de acceso de post (Aleatorio)', () => {
 
         const postTitle = faker.lorem.sentence();         
         const postContent = faker.lorem.paragraph();
@@ -114,7 +114,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(postTitle);
     });
 
-    it('EP005 - Debería permitir crear una página con tipo de acceso de post (A-priori)', () => {
+    it('EP005 - Debería permitir crear un post con tipo de acceso de post (A-priori)', () => {
         
         const postAccessOptions = [
             { value: aPrioriData[aPrioriRowIndex].access}
@@ -130,7 +130,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(aPrioriData[aPrioriRowIndex].title);
     });
 
-    it('EP006 - Debería permitir crear una página con tipo de acceso de post (Pseudo-aleatorio)', () => {
+    it('EP006 - Debería permitir crear un post con tipo de acceso de post (Pseudo-aleatorio)', () => {
 
         const postAccessOptions = [
             { value: pseudoData[pseudoRowIndex].access}

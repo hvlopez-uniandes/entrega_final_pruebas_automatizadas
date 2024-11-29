@@ -11,6 +11,8 @@ class Page {
         this.errorAlert = '.gh-alert';    
         this.settingsMenuButton = '.settings-menu-toggle'; 
         this.closeNotification = '.gh-notification-close';
+        this.selectPostAccess = 'span.gh-select > select';
+        this.postExcerpt = '#custom-excerpt';
     }
 }
 
@@ -40,7 +42,15 @@ class CreatePage extends Page {
     }
 
     // When El usuario ingresa el título y el contenido de la página
-    whenUserEntersPageDetails(title, content, date = '', autor = true, borrar = false) {
+    whenUserEntersPageDetails(
+        title, 
+        content, 
+        date = '', 
+        excerpt = '',
+        accessOptions = '',
+        autor = true, 
+        borrar = false
+    ) {
         
         if (title != '') {
             cy.get(this.pageTitleField).clear().type(title);
@@ -66,6 +76,22 @@ class CreatePage extends Page {
             cy.screenshot('settings-menu-opened');
             cy.get('.gh-date-time-picker-date').clear().type(date);
             cy.screenshot('page-content-entered');
+
+            if (excerpt != '') {
+                cy.get(this.postExcerpt).clear().type(excerpt, { force: true });
+                cy.screenshot('post-excerpt-entered');
+            }
+
+            if (accessOptions != '') {
+                const randomOptionIndex = Math.floor(Math.random() * accessOptions.length);
+                const option = accessOptions[randomOptionIndex];
+
+                cy.get(this.selectPostAccess).select(option.value); ; 
+                cy.screenshot('post-click-psot-access');
+        
+                cy.get(this.selectPostAccess).should('contain', option.value);
+                cy.screenshot('post-validate-post-access');
+            }
 
             if (autor == false) {
                 cy.get('.ember-power-select-multiple-remove-btn').should('be.visible').click();
