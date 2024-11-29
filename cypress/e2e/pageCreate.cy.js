@@ -51,7 +51,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         settingsDeleteContent.thenSettingsShouldDeleted(); 
     });
 
-    it('EP007 - Debería permitir crear una página con extracto (Aleatorio)', () => {
+    it('EP013 - Debería permitir crear una página con extracto (Aleatorio)', () => {
 
         const pageTitle = faker.lorem.sentence();         
         const pageContent = faker.lorem.paragraph();
@@ -70,7 +70,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         createPage.thenPageShouldBeVisibleInPagesList(pageTitle);
     });
 
-    it('EP008 - Debería permitir crear una página con extracto (A-priori)', () => {
+    it('EP014 - Debería permitir crear una página con extracto (A-priori)', () => {
 
         // Given El usuario navega a la sección de páginas
         createPage.givenUserIsOnPages();
@@ -85,7 +85,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         createPage.thenPageShouldBeVisibleInPagesList(aPrioriData[aPrioriRowIndex].title);
     });
 
-    it('EP009 - Debería permitir crear una página con extracto (Pseudo-aleatorio)', () => {
+    it('EP015 - Debería permitir crear una página con extracto (Pseudo-aleatorio)', () => {
 
         // Given El usuario navega a la sección de páginas
         createPage.givenUserIsOnPages();
@@ -100,7 +100,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         createPage.thenPageShouldBeVisibleInPagesList(pseudoData[pseudoRowIndex].title);
     });
 
-    it('EP010 - Debería permitir crear una página con tipo de acceso de una página (Aleatorio)', () => {
+    it('EP016 - Debería permitir crear una página con tipo de acceso de una página (Aleatorio)', () => {
 
         const pageTitle = faker.lorem.sentence();         
         const pageContent = faker.lorem.paragraph();
@@ -125,7 +125,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         createPage.thenPageShouldBeVisibleInPagesList(pageTitle);
     });
 
-    it('EP011 - Debería permitir crear una página con tipo de acceso de una página (A-priori)', () => {
+    it('EP017 - Debería permitir crear una página con tipo de acceso de una página (A-priori)', () => {
 
         const pageAccessOptions = [
             { value: aPrioriData[aPrioriRowIndex].access}
@@ -143,7 +143,7 @@ describe('Escenarios de pruebas para la funcionalidad páginas - Ghost', () => {
         createPage.thenPageShouldBeVisibleInPagesList(aPrioriData[aPrioriRowIndex].title);
     });
 
-    it('EP012 - Debería permitir crear una página con tipo de acceso de una página (Pseudo-aleatorio)', () => {
+    it('EP018 - Debería permitir crear una página con tipo de acceso de una página (Pseudo-aleatorio)', () => {
 
         const pageAccessOptions = [
             { value: pseudoData[pseudoRowIndex].access}

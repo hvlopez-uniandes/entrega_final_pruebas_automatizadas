@@ -226,7 +226,14 @@ class EditPage extends Page {
     }
 
     // When El usuario modifica el título y el contenido de la página
-    whenUserEditsPageDetails(newTitle, newContent, date = '', autor = true) {
+    whenUserEditsPageDetails(
+        newTitle, 
+        newContent, 
+        date = '',
+        excerpt = '',
+        accessOptions = '', 
+        autor = true
+    ) {
 
         if (newTitle != '') {
             cy.get(this.pageTitleField).clear().type(newTitle);
@@ -249,6 +256,22 @@ class EditPage extends Page {
             cy.screenshot('settings-menu-opened');
             cy.get('.gh-date-time-picker-date').clear().type(date);
             cy.screenshot('page-content-entered');
+
+            if (excerpt != '') {
+                cy.get(this.postExcerpt).clear().type(excerpt, { force: true });
+                cy.screenshot('post-excerpt-entered');
+            }
+
+            if (accessOptions != '') {
+                const randomOptionIndex = Math.floor(Math.random() * accessOptions.length);
+                const option = accessOptions[randomOptionIndex];
+
+                cy.get(this.selectPostAccess).select(option.value); ; 
+                cy.screenshot('post-click-psot-access');
+        
+                cy.get(this.selectPostAccess).should('contain', option.value);
+                cy.screenshot('post-validate-post-access');
+            }
 
             if (autor == false) {
                 cy.get('.ember-power-select-multiple-remove-btn').should('be.visible').click();
