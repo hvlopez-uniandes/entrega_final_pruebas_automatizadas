@@ -4,7 +4,7 @@
 - Hector Lopez (hv.lopez@uniandes.edu.co)
 
 
-Link de la Wiki: [Aqui](https://github.com/ebernalo2576/pruebas_e2e/wiki)
+Link de la Wiki: [Aqui](https://github.com/hvlopez-uniandes/entrega_final_pruebas_automatizadas/wiki)
 
 # Kraken
 ## Requisitos Previos
