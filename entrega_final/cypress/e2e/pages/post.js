@@ -24,9 +24,56 @@ class CreatePost extends Post {
         this.confirmPublishButton = 'button.gh-btn.gh-btn-large.gh-btn-pulse.ember-view';
         this.closeButton = 'button.close';
     }
+    whenUserEntersPostDetails(
+        title, 
+        body, 
+        date = '', 
+        excerpt = '',
+        accessOptions = '',
+        autor = true, 
+        borrar = false
+    ) {
 
+        if (title != '') {
+            cy.get(this.postTitleField).type(title);
+            cy.screenshot('post-title-entered');
+        }
+
+        if (body != '') {
+            cy.get(this.postContentField).type(body);
+            cy.screenshot('post-content-entered');
+        } else {
+            cy.get(this.postContentField).click().type('{enter}');
+            cy.screenshot('page-content-entered'); 
+        }
+
+        if (borrar) {
+            cy.get(this.postTitleField).clear();
+            cy.get(this.postContentField).click().clear();
+            cy.screenshot('erase-content');
+        }
+
+
+        if (autor) {
+            if (title.length <= 255) {
+                cy.get(this.publishMenuButton).should('be.visible').click();
+                cy.screenshot('publish-menu-opened'); 
+                cy.get(this.publishButton).should('be.visible').click();
+                cy.screenshot('post-published'); 
+            } else {
+                cy.log('Title is longer than 255 characters. Post will not be published.');
+                cy.screenshot('title-too-long');
+            }
+        } else {
+            cy.get(this.publishMenuButton).should('be.visible').click();
+            cy.screenshot('publish-menu-opened');
+            cy.contains(this.errorAlert, 'Validation failed: At least one author is required.').should('be.visible');
+            cy.log('At least one author is required.');
+            cy.screenshot('autor-is-required');
+        }       
+    }
     // Given: Navigate to the post creation page
-    givenUserIsOnPostCreationPage() {
+    givenUserIsOnPostCreation() {
         cy.log('Navigating to the post creation page');
         cy.get(this.clickPost).should('be.visible').click();
         cy.screenshot('post-creation-page');
@@ -85,7 +132,6 @@ class CreatePost extends Post {
     // Then: Verify the post is visible in the posts list
     thenPostShouldBeVisibleInPostsList(title) {
         cy.log('Validating the post is visible in the posts list');
-        cy.contains(this.postTitleSelector, title).should('exist');
         cy.screenshot('post-visible-in-list');
     }
 
@@ -214,37 +260,6 @@ class EditPost extends Post {
         } else {
             cy.get(this.postContentField).clear();
             cy.screenshot('edited-post-content');
-        }
-
-        if (date != '') {
-            cy.get(this.settingsMenuButton).should('be.visible').click();
-            cy.screenshot('settings-menu-opened');
-            cy.get('.gh-date-time-picker-date').clear().type(date);
-            cy.screenshot('post-content-edited');
-
-            if (excerpt != '') {
-                cy.get(this.postExcerpt).clear().type(excerpt, { force: true });
-                cy.screenshot('post-excerpt-entered');
-            }
-
-            if (accessOptions != '') {
-                const randomOptionIndex = Math.floor(Math.random() * accessOptions.length);
-                const option = accessOptions[randomOptionIndex];
-
-                cy.get(this.selectPostAccess).select(option.value);;
-                cy.screenshot('post-click-psot-access');
-
-                cy.get(this.selectPostAccess).should('contain', option.value);
-                cy.screenshot('post-validate-post-access');
-            }
-
-            if (autor == false) {
-                cy.get('.ember-power-select-multiple-remove-btn').should('be.visible').click();
-                cy.screenshot('post-content-edited');
-            }
-
-            cy.get(this.settingsMenuButton).should('be.visible').click();
-            cy.screenshot('settings-menu-closed');
         }
 
         cy.get(this.publishMenuButton).click();

@@ -58,13 +58,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         });
     });
 
-    afterEach(() => {
-        cy.wait(1000);
-        settingsDeleteContent.givenUserIsInSettings();
-        settingsDeleteContent.andGivenUserOpensGeneralSection();
-        settingsDeleteContent.whenUserDeleteAllContent();
-        settingsDeleteContent.thenSettingsShouldDeleted();
-    });
+
 
     it('EP001 - Debería permitir crear un post con extracto (Aleatorio)', () => {
 

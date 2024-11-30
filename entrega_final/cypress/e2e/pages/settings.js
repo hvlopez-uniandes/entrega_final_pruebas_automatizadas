@@ -1,7 +1,7 @@
 class Settings {
     constructor() {
         this.settingsMenuButton = '[data-test-nav="settings"]';
-        this.generalSettingsButton = '[data-testid="title-and-description"] > .items-start > :nth-child(2) > .flex > .cursor-pointer > span';
+        this.generalSettingsButton = '#ember24';
         this.expandButtonSection = 'button.gh-btn';
         this.titleField = 'input[placeholder="Site title"]';
         this.descriptionField = 'input[placeholder="Site description"]';
@@ -59,19 +59,19 @@ class SettingsDeleteContent extends Settings{
    
     // Given El usuario navega a la página de configuración
     givenUserIsInSettings() {
-        cy.get(this.settingsMenuButton).first().click();
+        cy.get(this.settingsMenuButton).click();
         cy.screenshot('settings-menu-opened'); 
     }
 
     // And El usuario abre la sección general de configuración
     andGivenUserOpensGeneralSection() {
-        cy.get(this.generalSettingsButton).first().click();
+        cy.get(this.generalSettingsButton).click();
         cy.screenshot('general-section-opened'); 
     }
 
     // When El usuario ingresa un nuevo título y descripción
     whenUserDeleteAllContent() { 
-        cy.get(this.contentSettings).scrollTo('bottom');
+        // cy.get(this.contentSettings).scrollTo('bottom');
         cy.get(this.deleteContent).should('be.visible').click();
         cy.screenshot('delete-all-content');    
     }
