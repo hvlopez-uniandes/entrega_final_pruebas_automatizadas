@@ -145,5 +145,102 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         // Then El usuario valida que la página esté visible en la lista de páginas
         createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
     });
+
+    /// LOS QUE FALTAN
+
+    it('EP025 - Debería permitir crear un post con un link de youtube (Pseudo-aleatorio)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+    it('EP026 - Debería permitir crear un post con un link de youtube (Aleatorio)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+    it('EP027 - Debería permitir crear un post con un link de youtube (A-priori)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+
+    it('EP028 - Debería permitir crear un post con un link de spotify (A-priori)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+    
+    it('EP029 - Debería permitir crear un post con un link de spotify (Pseudo-aleatorio)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+    
+    it('EP030 - Debería permitir crear un post con un link de spotify (Aleatorio)', () => {
+
+        const postAccessOptions = [
+            { value: pseudoData[pseudoRowIndex].access}
+        ];
+       
+        // Given El usuario navega a la sección de páginas
+        createPost.givenUserIsOnPostCreation();
+
+        // When El usuario ingresa los detalles de la página
+        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
+
+        // Then El usuario valida que la página esté visible en la lista de páginas
+        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+    });
+
     
 });
