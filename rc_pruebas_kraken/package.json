@@ -1,0 +1,20 @@
+{
+  "name": "kre2e2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "@wdio/globals": "^9.2.11",
+    "axios": "^1.7.7",
+    "chai": "^5.1.2",
+    "csv-parser": "^3.0.0",
+    "kraken-node": "^1.0.24",
+    "webdriverio": "^9.2.11"
+  }
+}

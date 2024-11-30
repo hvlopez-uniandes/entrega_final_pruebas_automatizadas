@@ -1,0 +1,190 @@
+{
+    "tagWithoutData": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ],
+    "tagNormalData": [
+        {
+            "name": "Tecnology",
+            "color": "232323",
+            "description": "This slug is for tecnology topics."
+        },
+        {
+            "name": "Architecture",
+            "color": "000000",
+            "description": "This slug is for architecture topics."
+        },
+        {
+            "name": "Software Development",
+            "color": "ffffff",
+            "description": "This slug is for software development topics."
+        }
+    ],
+    "tagData": [
+        {
+            "name": "Tecnology",
+            "color": "232323",
+            "slug": "Labellezadeunahistoriaradicaríasuenfoqueendetenidasrazonesimposibles...",
+            "description": "This slug is for tecnology topics."
+        },
+        {
+            "name": "Architecture",
+            "color": "000000",
+            "slug": "Solounacaminomudohilvanandodestinosocultossintrazadospredeterminados...",
+            "description": "This slug is for architecture topics."
+        },
+        {
+            "name": "Software Development",
+            "color": "ffffff",
+            "slug": "Destellosdeesperanzadanzansobremisalmaentrelazadadeversosinconclusos...",
+            "description": "This slug is for software development topics."
+        },
+        {
+            "name": "Blockchain",
+            "color": "0f0f0f",
+            "slug": "Suspensiónperpetuadeseraflorandodesconciertosquehablandeloscaminosolvidados...",
+            "description": "This slug is for blockchain topics."
+        },
+        {
+            "name": "Databases",
+            "color": "234567",
+            "slug": "Miradasentrelazadassecretoscompartidosenununiversosecretoquenadiepercibe...",
+            "description": "This slug is for databases topics."
+        },
+        {
+            "name": "Spring Framework",
+            "color": "000987",
+            "slug": "Voceserrantesenlanocheclamanporsalvaciónenunmundodesolaciónytristeza...",
+            "description": "This slug is for spring framework topics."
+        },
+        {
+            "name": "Spring Boot",
+            "color": "8970ff",
+            "slug": "Latidosdiluidosenlasombraentintadaunahistoriaquesoloelvientoconoce...",
+            "description": "This slug is for spring boot topics."
+        },
+        {
+            "name": "Angular",
+            "color": "fff334",
+            "slug": "Silencioabsolutoenmarañadodepalabrasquedibujanimágenesdesvanecidasyetéreas...",
+            "description": "This slug is for angular topics."
+        },
+        {
+            "name": "React",
+            "color": "009327",
+            "slug": "Amaneceradormecidosobreelacantiladomientraselmundodespiertahaciadestinoincierto...",
+            "description": "This slug is for react topics."
+        },
+        {
+            "name": "Kotlin",
+            "color": "f9f832",
+            "slug": "ertyeceradormecidosobreelacantiladomientraselmundodespiertahaciadestinoincierto...",
+            "description": "This slug is for kotlin topics."
+        }
+    ],
+    "tagLongNameData": [
+        {
+            "name": "Labellezadeunahistoriaradicaríasuenfoqueendetenidasrazonesimposibles...",
+            "color": "232323",
+            "slug": "Tecnology",
+            "description": "This slug is for tecnology topics."
+        },
+        {
+            "name": "Solounacaminomudohilvanandodestinosocultossintrazadospredeterminados...",
+            "color": "000000",
+            "slug": "Architecture",
+            "description": "This slug is for architecture topics."
+        },
+        {
+            "name": "Destellosdeesperanzadanzansobremisalmaentrelazadadeversosinconclusos...",
+            "color": "ffffff",
+            "slug": "Software Development",
+            "description": "This slug is for software development topics."
+        }
+    ],
+    "tagDataLongSlug": [
+        {
+            "name": "Tecnology",
+            "color": "232323",
+            "slug": "12Labellezadeunahistoriaradicaríasuenfoqueendetenidasrazonesimposibles...",
+            "description": "This slug is for tecnology topics."
+        },
+        {
+            "name": "Architecture",
+            "color": "000000",
+            "slug": "34Solounacaminomudohilvanandodestinosocultossintrazadospredeterminados...",
+            "description": "This slug is for architecture topics."
+        },
+        {
+            "name": "Software Development",
+            "color": "ffffff",
+            "slug": "56Destellosdeesperanzadanzansobremisalmaentrelazadadeversosinconclusos...",
+            "description": "This slug is for software development topics."
+        },
+        {
+            "name": "Blockchain",
+            "color": "0f0f0f",
+            "slug": "78Suspensiónperpetuadeseraflorandodesconciertosquehablandeloscaminosolvidados...",
+            "description": "This slug is for blockchain topics."
+        },
+        {
+            "name": "Databases",
+            "color": "234567",
+            "slug": "90Miradasentrelazadassecretoscompartidosenununiversosecretoquenadiepercibe...",
+            "description": "This slug is for databases topics."
+        },
+        {
+            "name": "Spring Framework",
+            "color": "000987",
+            "slug": "12Voceserrantesenlanocheclamanporsalvaciónenunmundodesolaciónytristeza...",
+            "description": "This slug is for spring framework topics."
+        }
+    ],
+    "tagDataDescription": [
+        {
+            "name": "Tecnology",
+            "color": "232323",
+            "slug": "TecnologySlug",
+            "description": "This slug is for technology topics. Lorem ipsum dolor sit amet..."
+        },
+        {
+            "name": "Architecture",
+            "color": "000000",
+            "slug": "ArchitectureSlug",
+            "description": "This slug is for architecture topics. Lorem ipsum dolor sit amet..."
+        },
+        {
+            "name": "Software Development",
+            "color": "ffffff",
+            "slug": "SoftwareDevSlug",
+            "description": "This slug is for software development topics. Lorem ipsum dolor sit amet..."
+        }
+    ],
+     "tagDataLongDescription": [
+        {
+            "name": "Tecnology",
+            "color": "232323",
+            "slug": "TecnologySlug",
+            "description": "This slug is for technology topics. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod magna id fermentum efficitur. Proin auctor finibus massa a pulvinar. Vivamus ac dui at metus consectetur interdum. Nam eu convallis turpis, a luctus lacus. Nullam ultrices, mauris et pulvinar viverra, justo velit finibus mi, sit amet suscipit lacus mi in ex. Quisque eget finibus turpis. Sed id tempor purus. Etiam tristique lorem sed urna efficitur, id feugiat metus fermentum. Quisque finibusss"
+        },
+        {
+            "name": "Architecture",
+            "color": "000000",
+            "slug": "ArchitectureSlug",
+            "description": "This slug is for architecture topics. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod magna id fermentum efficitur. Proin auctor finibus massa a pulvinar. Vivamus ac dui at metus consectetur interdum. Nam eu convallis turpis, a luctus lacus. Nullam ultrices, mauris et pulvinar viverra, justo velit finibus mi, sit amet suscipit lacus mi in ex. Quisque eget finibus turpis. Sed id tempor purus. Etiam tristique lorem sed urna efficitur, id feugiat metus fermentum. Quisque fini000"
+        },
+        {
+            "name": "Software Development",
+            "color": "ffffff",
+            "slug": "SoftwareDevSlug",
+            "description": "This slug is for software development topics. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod magna id fermentum efficitur. Proin auctor finibus massa a pulvinar. Vivamus ac dui at metus consectetur interdum. Nam eu convallis turpis, a luctus lacus. Nullam ultrices, mauris et pulvinar viverra, justo velit finibus mi, sit amet suscipit lacus mi in ex. Quisque eget finibus turpis. Sed id tempor purus. Etiam tristique lorem sed urna efficitur, id feugiat metus fermentum. Quisqqq"
+        }
+    ]
+}
