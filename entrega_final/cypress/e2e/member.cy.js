@@ -1,17 +1,11 @@
 import loginPage from './pages/login';
-import { CreateMember, ViewMembers, EditMember, DeleteMember } from './pages/member';
+import { CreateMember, EditMember } from './pages/member';
 import { faker } from '@faker-js/faker';
 
 
 const createMember = new CreateMember();
-const viewMembers = new ViewMembers();
 const editMember = new EditMember();
-const deleteMember = new DeleteMember();
-const memberName = faker.person.fullName();
-const memberEmail = faker.internet.email();
-const newMemberName = faker.person.fullName();
-const newMemberEmail = faker.internet.email();
-const apiUrl = Cypress.env('MEMBERS_API_URL');
+const apiUrl = Cypress.env('API_URL');
 const MEMBERS_API_MOCK_PATH = Cypress.env('MEMBERS_API_MOCK_PATH');
 
 
@@ -110,7 +104,7 @@ describe('Escenarios de pruebas para la funcionalidad miembros - Ghost', () => {
     //Debería mostrar un error al intentar EDITAR un miembro con un email en un formato inválido (Aleatorio)
     it('EP033 - Debería mostrar un error al intentar EDITAR un miembro con un email en un formato inválido (aleatorio)', () => {
         const memberName = faker.person.fullName();
-        const memberEmail = faker.internet.email();
+        const memberEmail = faker.internet.email({provider: 'gmail.com', allowSpecialCharacters: false});
         const invalidEmail = faker.string.symbol(10) + faker.internet.emoji() + faker.string.sample(10);
 
         // Given El usuario navega a la sección de miembros
@@ -150,7 +144,7 @@ describe('Escenarios de pruebas para la funcionalidad miembros - Ghost', () => {
     //Debería permitir CREAR exitosamente un nuevo miembro con un email y nombre válidos (Aletorio)
     it('EP035 - Debería permitir CREAR exitosamente un nuevo miembro con un email y nombre válidos (Aletorio)', () => {
         const memberName = faker.person.fullName();
-        const memberEmail = faker.internet.email();
+        const memberEmail = faker.internet.email({provider: 'gmail.com', allowSpecialCharacters: false});
 
         // Given El usuario navega a la sección de miembros
         createMember.givenUserIsOnMembersPage();

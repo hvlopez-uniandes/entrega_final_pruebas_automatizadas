@@ -148,13 +148,10 @@ class EditMember extends Member {
     whenUserEditsMemberDetails(newName, newEmail) {
         cy.get(this.memberNameField).clear().type(newName);
         cy.screenshot('member-name-edited');
-        if (newEmail == '') {
-            cy.get(this.memberEmailField).clear();
+
+            cy.get(this.memberEmailField).click().clear();
+            cy.get(this.memberEmailField).type(newEmail);
             cy.screenshot('member-email-entered');
-        } else {
-            cy.get(this.memberEmailField).clear().type(newEmail);
-            cy.screenshot('member-email-entered');
-        }
         cy.screenshot('member-email-edited'); 
         cy.get('.gh-main').scrollTo('top');
         cy.get(this.saveMemberButton).should('be.visible').click();

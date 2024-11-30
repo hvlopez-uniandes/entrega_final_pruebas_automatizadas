@@ -150,96 +150,91 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
 
     it('EP025 - Debería permitir crear un post con un link de youtube (Pseudo-aleatorio)', () => {
 
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
-        ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        post.checkPlaceHolderTitle();
+        post.title(`Post de ${url.title}`);
+        post.addYoutube(url.url);
+        post.publish();
+        post.checkPublish(`Post de ${url.title}`);
     });
     it('EP026 - Debería permitir crear un post con un link de youtube (Aleatorio)', () => {
+        post.checkPlaceHolderTitle();
 
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
+        const acciones = [
+          () => post.title(`Post de ${url.title}`),
+          () => post.addYoutube(url.url),
         ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        mezclarAccionesAleatorio(acciones);
+        acciones.forEach((accion) => accion()); 
+  
+        post.publish();
+        post.checkPublish(`Post de ${url.title}`);
     });
     it('EP027 - Debería permitir crear un post con un link de youtube (A-priori)', () => {
 
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
-        ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        let screen = screenshot.bind(
+            null,
+            "Add Post",
+            `Registrar y Publicar un nuevo Post con youtube ${url.title} ${i}`
+          );
+    
+          screen("paso1")
+          post.checkPlaceHolderTitle();
+          screen("paso2")
+          post.title(`Post de ${url.title}`);
+          post.addYoutube(url.url);
+          screen("paso3")
+          post.publish();
+          screen("paso4")
+          post.checkPublish(`Post de ${url.title}`);
+          screen("paso5")
     });
 
     it('EP028 - Debería permitir crear un post con un link de spotify (A-priori)', () => {
-
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
-        ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        let screen = screenshot.bind(
+            null,
+            "Add Post",
+            `Registrar y Publicar un nuevo Post con youtube ${url.title} ${i}`
+          );
+    
+          screen("paso1")
+          post.checkPlaceHolderTitle();
+          screen("paso2")
+          post.title(`Post de ${url.title}`);
+          post.addYoutube(url.url);
+          screen("paso3")
+          post.publish();
+          screen("paso4")
+          post.checkPublish(`Post de ${url.title}`);
+          screen("paso5")
     });
     
     it('EP029 - Debería permitir crear un post con un link de spotify (Pseudo-aleatorio)', () => {
 
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
-        ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        post.checkPlaceHolderTitle();
+        post.title(`Post of ${track.name} by ${track.artist} (${track.genre})`);
+        post.addSpotify(track.url);
+        post.publish();
+        post.checkPublish(
+          `Post of ${track.name} by ${track.artist} (${track.genre})`
+        );
     });
     
     it('EP030 - Debería permitir crear un post con un link de spotify (Aleatorio)', () => {
 
-        const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
+        post.checkPlaceHolderTitle();
+  
+        const acciones = [
+          () => post.title(`Post of ${track.name} by ${track.artist} (${track.genre})`),
+          () => post.addSpotify(track.url)
         ];
-       
-        // Given El usuario navega a la sección de páginas
-        createPost.givenUserIsOnPostCreation();
-
-        // When El usuario ingresa los detalles de la página
-        createPost.whenUserEntersPostDetails(pseudoData[pseudoRowIndex].title, pseudoData[pseudoRowIndex].description, pseudoData[pseudoRowIndex].date, '', postAccessOptions);
-
-        // Then El usuario valida que la página esté visible en la lista de páginas
-        createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
+        mezclarAccionesAleatorio(acciones);
+        acciones.forEach((accion) => accion()); 
+  
+  
+        post.publish();
+        post.checkPublish(
+          `Post of ${track.name} by ${track.artist} (${track.genre})`
+        );
     });
 
     
