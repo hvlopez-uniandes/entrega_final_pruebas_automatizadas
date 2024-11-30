@@ -5,12 +5,27 @@ import { SettingsDeleteContent } from './pages/settings';
 
 const createPost = new CreatePost();
 const settingsDeleteContent = new SettingsDeleteContent();
-const apiUrl = Cypress.env('API_URL')+"/post-pseudo-aleatorio.json?key=aff162e0";
-
+const apiUrl = Cypress.env('API_URL') + "/post-pseudo-aleatorio.json?key=aff162e0";
+function mezclar(array) {
+    let indiceActual = array.length,
+      indiceAleatorio;
+  
+    while (indiceActual !== 0) {
+      indiceAleatorio = Math.floor(Math.random() * indiceActual);
+      indiceActual--;
+  
+      [array[indiceActual], array[indiceAleatorio]] = [
+        array[indiceAleatorio],
+        array[indiceActual],
+      ];
+    }
+  
+    return array;
+  }
 describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     Cypress.on('uncaughtexception', (err) => {
         if (err.message.includes('TransitionAborted')) {
-            return false; 
+            return false;
         }
     });
 
@@ -27,9 +42,9 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
 
     beforeEach(() => {
         cy.session('user-session', () => {
-            login.givenUserIsOnLoginPage(); 
-            login.whenUserLogsIn();       
-            login.thenUserShouldSeeDashboard(); 
+            login.givenUserIsOnLoginPage();
+            login.whenUserLogsIn();
+            login.thenUserShouldSeeDashboard();
         });
         cy.visit(Cypress.env('GHOST_URL') + '/ghost/#/dashboard');
         cy.wait(1000);
@@ -45,19 +60,19 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
 
     afterEach(() => {
         cy.wait(1000);
-        settingsDeleteContent.givenUserIsInSettings(); 
-        settingsDeleteContent.andGivenUserOpensGeneralSection(); 
-        settingsDeleteContent.whenUserDeleteAllContent(); 
-        settingsDeleteContent.thenSettingsShouldDeleted(); 
+        settingsDeleteContent.givenUserIsInSettings();
+        settingsDeleteContent.andGivenUserOpensGeneralSection();
+        settingsDeleteContent.whenUserDeleteAllContent();
+        settingsDeleteContent.thenSettingsShouldDeleted();
     });
 
     it('EP001 - Debería permitir crear un post con extracto (Aleatorio)', () => {
 
-        const postTitle = faker.lorem.sentence();         
+        const postTitle = faker.lorem.sentence();
         const postContent = faker.lorem.paragraph();
         const postDate = faker.date.past(1).toISOString().split('T')[0];
         const postExcerpt = faker.lorem.sentence();
-       
+
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
 
@@ -69,7 +84,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     });
 
     it('EP002 - Debería permitir crear un post con extracto (A-priori)', () => {
-       
+
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
 
@@ -81,7 +96,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     });
 
     it('EP003 - Debería permitir crear un post con extracto (Pseudo-aleatorio)', () => {
-       
+
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
 
@@ -94,16 +109,16 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
 
     it('EP004 - Debería permitir crear un post con tipo de acceso de post (Aleatorio)', () => {
 
-        const postTitle = faker.lorem.sentence();         
+        const postTitle = faker.lorem.sentence();
         const postContent = faker.lorem.paragraph();
         const postDate = faker.date.past(1).toISOString().split('T')[0];
         const postAccessOptions = [
-            { value: 'Public'},
-            { value: 'Members only'},
-            { value: 'Paid-members only'},
-            { value: 'Specific tier(s)'}
+            { value: 'Public' },
+            { value: 'Members only' },
+            { value: 'Paid-members only' },
+            { value: 'Specific tier(s)' }
         ];
-       
+
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
 
@@ -115,9 +130,9 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     });
 
     it('EP005 - Debería permitir crear un post con tipo de acceso de post (A-priori)', () => {
-        
+
         const postAccessOptions = [
-            { value: aPrioriData[aPrioriRowIndex].access}
+            { value: aPrioriData[aPrioriRowIndex].access }
         ];
 
         // Given El usuario navega a la sección de páginas
@@ -133,9 +148,9 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     it('EP006 - Debería permitir crear un post con tipo de acceso de post (Pseudo-aleatorio)', () => {
 
         const postAccessOptions = [
-            { value: pseudoData[pseudoRowIndex].access}
+            { value: pseudoData[pseudoRowIndex].access }
         ];
-       
+
         // Given El usuario navega a la sección de páginas
         createPost.givenUserIsOnPostCreation();
 
@@ -146,96 +161,89 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
         createPost.thenPostShouldBeVisibleInPostsList(pseudoData[pseudoRowIndex].title);
     });
 
-    /// LOS QUE FALTAN
-
     it('EP025 - Debería permitir crear un post con un link de youtube (Pseudo-aleatorio)', () => {
-
-        post.checkPlaceHolderTitle();
-        post.title(`Post de ${url.title}`);
-        post.addYoutube(url.url);
-        post.publish();
-        post.checkPublish(`Post de ${url.title}`);
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
+    
+        // When
+        createPost.whenUserCreatesPostWithYoutubeLink(`Post de ${url.title}`, url.url);
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(`Post de ${url.title}`);
     });
+    
     it('EP026 - Debería permitir crear un post con un link de youtube (Aleatorio)', () => {
-        post.checkPlaceHolderTitle();
-
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
+    
+        // When
         const acciones = [
-          () => post.title(`Post de ${url.title}`),
-          () => post.addYoutube(url.url),
+            () => createPost.whenUserSetsPostTitle(`Post de ${url.title}`),
+            () => createPost.whenUserAddsYoutubeLink(url.url),
         ];
-        mezclarAccionesAleatorio(acciones);
-        acciones.forEach((accion) => accion()); 
-  
-        post.publish();
-        post.checkPublish(`Post de ${url.title}`);
+        createPost.randomizeActions(acciones).forEach((accion) => accion());
+        createPost.whenUserPublishesThePost();
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(`Post de ${url.title}`);
     });
+    
     it('EP027 - Debería permitir crear un post con un link de youtube (A-priori)', () => {
-
-        let screen = screenshot.bind(
-            null,
-            "Add Post",
-            `Registrar y Publicar un nuevo Post con youtube ${url.title} ${i}`
-          );
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
     
-          screen("paso1")
-          post.checkPlaceHolderTitle();
-          screen("paso2")
-          post.title(`Post de ${url.title}`);
-          post.addYoutube(url.url);
-          screen("paso3")
-          post.publish();
-          screen("paso4")
-          post.checkPublish(`Post de ${url.title}`);
-          screen("paso5")
+        // When
+        createPost.whenUserCreatesPostWithoutMedia(`Post de ${url.title}`);
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(`Post de ${url.title}`);
     });
-
-    it('EP028 - Debería permitir crear un post con un link de spotify (A-priori)', () => {
-        let screen = screenshot.bind(
-            null,
-            "Add Post",
-            `Registrar y Publicar un nuevo Post con youtube ${url.title} ${i}`
-          );
     
-          screen("paso1")
-          post.checkPlaceHolderTitle();
-          screen("paso2")
-          post.title(`Post de ${url.title}`);
-          post.addYoutube(url.url);
-          screen("paso3")
-          post.publish();
-          screen("paso4")
-          post.checkPublish(`Post de ${url.title}`);
-          screen("paso5")
+    it('EP028 - Debería permitir crear un post con un link de spotify (A-priori)', () => {
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
+    
+        // When
+        createPost.whenUserCreatesPostWithSpotifyLink(`Post de ${url.title}`, url.url);
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(`Post de ${url.title}`);
     });
     
     it('EP029 - Debería permitir crear un post con un link de spotify (Pseudo-aleatorio)', () => {
-
-        post.checkPlaceHolderTitle();
-        post.title(`Post of ${track.name} by ${track.artist} (${track.genre})`);
-        post.addSpotify(track.url);
-        post.publish();
-        post.checkPublish(
-          `Post of ${track.name} by ${track.artist} (${track.genre})`
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
+    
+        // When
+        createPost.whenUserCreatesPostWithSpotifyLink(
+            `Post of ${track.name} by ${track.artist} (${track.genre})`,
+            track.url
+        );
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(
+            `Post of ${track.name} by ${track.artist} (${track.genre})`
         );
     });
     
     it('EP030 - Debería permitir crear un post con un link de spotify (Aleatorio)', () => {
-
-        post.checkPlaceHolderTitle();
-  
+        // Given
+        createPost.givenUserIsOnPostCreationPage();
+    
+        // When
         const acciones = [
-          () => post.title(`Post of ${track.name} by ${track.artist} (${track.genre})`),
-          () => post.addSpotify(track.url)
+            () => createPost.whenUserSetsPostTitle(`Post of ${track.name} by ${track.artist} (${track.genre})`),
+            () => createPost.whenUserAddsSpotifyLink(track.url),
         ];
-        mezclarAccionesAleatorio(acciones);
-        acciones.forEach((accion) => accion()); 
-  
-  
-        post.publish();
-        post.checkPublish(
-          `Post of ${track.name} by ${track.artist} (${track.genre})`
+        createPost.randomizeActions(acciones).forEach((accion) => accion());
+        createPost.whenUserPublishesThePost();
+    
+        // Then
+        createPost.thenPostShouldBeVisibleInPostsList(
+            `Post of ${track.name} by ${track.artist} (${track.genre})`
         );
     });
-
     
+    
+
 });

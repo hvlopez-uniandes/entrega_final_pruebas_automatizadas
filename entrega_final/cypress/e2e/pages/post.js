@@ -6,8 +6,8 @@ class Post {
         this.postTitleSelector = 'h3.gh-content-entry-title';
         this.backToPostsButton = 'a.ember-view.gh-btn-editor.gh-editor-back-button'
         this.confirmLeaveButton = '.modal-footer .gh-btn-red';
-        this.errorAlert = '.gh-alert';    
-        this.settingsMenuButton = '.settings-menu-toggle'; 
+        this.errorAlert = '.gh-alert';
+        this.settingsMenuButton = '.settings-menu-toggle';
         this.closeNotification = '.gh-notification-close';
         this.selectPostAccess = 'span.gh-select > select';
         this.postExcerpt = '#custom-excerpt';
@@ -25,125 +25,96 @@ class CreatePost extends Post {
         this.closeButton = 'button.close';
     }
 
-    // Given El usuario da ícono + para crear un post
-    givenUserIsOnPostCreation() {
-        cy.log('Crear post Navegando a la página de creación de posts');
+    // Given: Navigate to the post creation page
+    givenUserIsOnPostCreationPage() {
+        cy.log('Navigating to the post creation page');
         cy.get(this.clickPost).should('be.visible').click();
-        cy.screenshot('post-creation-page'); 
+        cy.screenshot('post-creation-page');
     }
 
-    // When El usuario digita el títuo y contenido del post
-    whenUserEntersPostDetails(
-        title, 
-        body, 
-        date = '', 
-        excerpt = '',
-        accessOptions = '',
-        autor = true, 
-        borrar = false
-    ) {
-
-        if (title != '') {
-            cy.get(this.postTitleField).type(title);
-            cy.screenshot('post-title-entered');
-        }
-
-        if (body != '') {
-            cy.get(this.postContentField).type(body);
-            cy.screenshot('post-content-entered');
-        } else {
-            cy.get(this.postContentField).click().type('{enter}');
-            cy.screenshot('page-content-entered'); 
-        }
-
-        if (borrar) {
-            cy.get(this.postTitleField).clear();
-            cy.get(this.postContentField).click().clear();
-            cy.screenshot('erase-content');
-        }
-        if (date != '') {
-            cy.get(this.settingsMenuButton).should('be.visible').click(); 
-            cy.screenshot('settings-menu-opened');
-            cy.get('.gh-date-time-picker-date').clear().type(date);
-            cy.screenshot('post-content-entered');
-
-            if (excerpt != '') {
-                cy.get(this.postExcerpt).clear().type(excerpt, { force: true });
-                cy.screenshot('post-excerpt-entered');
-            }
-
-            if (accessOptions != '') {
-                const randomOptionIndex = Math.floor(Math.random() * accessOptions.length);
-                const option = accessOptions[randomOptionIndex];
-
-                cy.get(this.selectPostAccess).select(option.value); ; 
-                cy.screenshot('post-click-psot-access');
-        
-                cy.get(this.selectPostAccess).should('contain', option.value);
-                cy.screenshot('post-validate-post-access');
-            }
-
-            if (autor == false) {
-                cy.get('.ember-power-select-multiple-remove-btn').should('be.visible').click();
-                cy.screenshot('post-content-entered');
-            }
-
-            cy.get(this.settingsMenuButton).should('be.visible').click(); 
-            cy.screenshot('settings-menu-closed');
-        }
-
-        if (autor) {
-            if (title.length <= 255) {
-                cy.get(this.publishMenuButton).should('be.visible').click();
-                cy.screenshot('publish-menu-opened'); 
-                cy.get(this.publishButton).should('be.visible').click();
-                cy.screenshot('post-published'); 
-            } else {
-                cy.log('Title is longer than 255 characters. Post will not be published.');
-                cy.screenshot('title-too-long');
-            }
-        } else {
-            cy.get(this.publishMenuButton).should('be.visible').click();
-            cy.screenshot('publish-menu-opened');
-            cy.contains(this.errorAlert, 'Validation failed: At least one author is required.').should('be.visible');
-            cy.log('At least one author is required.');
-            cy.screenshot('autor-is-required');
-        }       
+    // When: Set the post title
+    whenUserSetsPostTitle(title) {
+        cy.log('Setting post title');
+        cy.get(this.postTitleField).type(title);
+        cy.screenshot('post-title-set');
     }
 
-    // Then El usuario valida que el post esté creado
-    thenPostShouldBeVisibleInPostsList(title) {
+    // When: Add a YouTube link to the post
+    whenUserAddsYoutubeLink(youtubeUrl) {
+        cy.log('Adding a YouTube link');
+        cy.get(this.postContentField).type(`/youtube ${youtubeUrl}{enter}`);
+        cy.screenshot('youtube-link-added');
+    }
+
+    // When: Add a Spotify link to the post
+    whenUserAddsSpotifyLink(spotifyUrl) {
+        cy.log('Adding a Spotify link');
+        cy.get(this.postContentField).type(`/spotify ${spotifyUrl}{enter}`);
+        cy.screenshot('spotify-link-added');
+    }
+
+    // When: Publish the post
+    whenUserPublishesThePost() {
+        cy.log('Publishing the post');
+        cy.get(this.publishMenuButton).should('be.visible').click();
+        cy.get(this.publishButton).should('be.visible').click();
         cy.get(this.confirmPublishButton).should('be.visible').click();
-        cy.screenshot('confirm-publish');
-        cy.get(this.closeButton).should('be.visible').click();
-        cy.screenshot('post-editor-closed');
-
-        if (title != '') {
-            cy.contains(title).should('exist');
-            cy.screenshot('post-visible-in-list');
-            cy.wait(1000);
-        } else {
-            cy.contains('Untitled').should('exist');
-            cy.log('Title is empty. Post will be named "Untitled".')
-        }
+        cy.screenshot('post-published');
     }
 
-    thenPostShouldNotBeVisibleInPostsList(title, autor = true) {
-        
-        cy.get(this.backToPostsButton).should('be.visible').click();
-        cy.screenshot('post-content-validated');
-        cy.get(this.confirmLeaveButton).should('be.visible').click();
-        cy.screenshot('leave-confirmed');
-        cy.url().should('include', '/ghost/#/posts'); 
-        if (autor == false) {
-            cy.contains(this.postTitleSelector, title).should('exist');
-            cy.screenshot('page-visible-in-list');
-        } else {
-            cy.contains(this.postTitleSelector, title).should('not.exist');
-            cy.screenshot('page-not-visible-in-list');
+    // When: Create a post with a YouTube link
+    whenUserCreatesPostWithYoutubeLink(title, youtubeUrl) {
+        this.whenUserSetsPostTitle(title);
+        this.whenUserAddsYoutubeLink(youtubeUrl);
+        this.whenUserPublishesThePost();
+    }
+
+    // When: Create a post with a Spotify link
+    whenUserCreatesPostWithSpotifyLink(title, spotifyUrl) {
+        this.whenUserSetsPostTitle(title);
+        this.whenUserAddsSpotifyLink(spotifyUrl);
+        this.whenUserPublishesThePost();
+    }
+
+    // When: Create a post without any media
+    whenUserCreatesPostWithoutMedia(title) {
+        this.whenUserSetsPostTitle(title);
+        this.whenUserPublishesThePost();
+    }
+
+    // Then: Verify the post is visible in the posts list
+    thenPostShouldBeVisibleInPostsList(title) {
+        cy.log('Validating the post is visible in the posts list');
+        cy.contains(this.postTitleSelector, title).should('exist');
+        cy.screenshot('post-visible-in-list');
+    }
+
+    // Then: Verify the post is not visible in the posts list
+    thenPostShouldNotBeVisibleInPostsList(title) {
+        cy.log('Validating the post is not visible in the posts list');
+        cy.contains(this.postTitleSelector, title).should('not.exist');
+        cy.screenshot('post-not-visible-in-list');
+    }
+
+    // Utility: Check placeholder text for the title input
+    checkPlaceHolderTitle() {
+        cy.log('Checking placeholder for the title input');
+        cy.get("textarea[data-test-editor-title-input]")
+            .invoke("attr", "placeholder")
+            .should("contain", "Post title");
+    }
+
+    // Utility: Shuffle actions for randomization
+    randomizeActions(actions) {
+        cy.log('Randomizing actions');
+        for (let i = actions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [actions[i], actions[j]] = [actions[j], actions[i]];
         }
+        return actions;
     }
 }
+
 
 class ViewPosts extends Post {
     constructor() {
@@ -160,7 +131,7 @@ class ViewPosts extends Post {
 
     // When El usuario revisa la lista de posts
     whenUserViewsPostsList() {
-        cy.get(this.postAllSelector).should('exist'); 
+        cy.get(this.postAllSelector).should('exist');
         cy.screenshot('posts-list-visible');
     }
 
@@ -178,24 +149,24 @@ class ValidatePost extends Post {
 
     // Given El usuario navega a la lista de posts
     givenUserIsOnPostsList() {
-        cy.get(this.postsListButton).click();         
+        cy.get(this.postsListButton).click();
         cy.url().should('include', '/ghost/#/posts');
-        cy.screenshot('posts-list-for-validation');  
+        cy.screenshot('posts-list-for-validation');
     }
 
     // When El usuario selecciona un post específico para verlo en detalle
     whenUserSelectsPostToView(title) {
         cy.contains(this.postTitleSelector, title).click();
-        cy.screenshot('post-selected-for-viewing'); 
+        cy.screenshot('post-selected-for-viewing');
     }
 
     // Then El contenido del post debe coincidir con el contenido esperado
     thenPostContentShouldMatch(expectedContent) {
-        cy.get(this.postContentField).should('contain.text', expectedContent); 
-        cy.screenshot('post-content-matches'); 
-        cy.get(this.backToPostsButton).click(); 
+        cy.get(this.postContentField).should('contain.text', expectedContent);
+        cy.screenshot('post-content-matches');
+        cy.get(this.backToPostsButton).click();
         cy.screenshot('returned-to-posts-list');
-        cy.url().should('include', '/ghost/#/posts'); 
+        cy.url().should('include', '/ghost/#/posts');
     }
 
 }
@@ -222,9 +193,9 @@ class EditPost extends Post {
 
     // When El usuario edita los detalles del post, incluyendo el título y el contenido.
     whenUserEditsPostDetails(
-        newTitle, 
-        newContent, 
-        date = '', 
+        newTitle,
+        newContent,
+        date = '',
         excerpt = '',
         accessOptions = '',
         autor = true
@@ -239,12 +210,12 @@ class EditPost extends Post {
 
         if (newContent != '') {
             cy.get(this.postContentField).clear().type(newContent);
-            cy.screenshot('post-content-edited'); 
+            cy.screenshot('post-content-edited');
         } else {
             cy.get(this.postContentField).clear();
             cy.screenshot('edited-post-content');
         }
-        
+
         if (date != '') {
             cy.get(this.settingsMenuButton).should('be.visible').click();
             cy.screenshot('settings-menu-opened');
@@ -260,9 +231,9 @@ class EditPost extends Post {
                 const randomOptionIndex = Math.floor(Math.random() * accessOptions.length);
                 const option = accessOptions[randomOptionIndex];
 
-                cy.get(this.selectPostAccess).select(option.value); ; 
+                cy.get(this.selectPostAccess).select(option.value);;
                 cy.screenshot('post-click-psot-access');
-        
+
                 cy.get(this.selectPostAccess).should('contain', option.value);
                 cy.screenshot('post-validate-post-access');
             }
@@ -297,15 +268,15 @@ class EditPost extends Post {
             cy.screenshot('autor-is-required');
             cy.get(this.updateButton).should('be.visible').click();
             cy.screenshot('post-not-updated');
-        }   
-            
+        }
+
     }
 
     thenPostShouldNotBeVisibleInPostList(title) {
         cy.log('Title is longer than 255 characters. Post will not be published.');
         cy.get(this.confirmLeaveButton).should('be.visible').click();
         cy.screenshot('leave-confirmed');
-        cy.url().should('include', '/ghost/#/posts'); 
+        cy.url().should('include', '/ghost/#/posts');
         cy.contains(this.postTitleSelector, title).should('not.exist');
         cy.screenshot('post-not-visible-in-list');
     }
@@ -337,7 +308,7 @@ class UnpublishPost extends Post {
     givenUserIsOnPostsList() {
         cy.get(this.postsListButton).click();
         cy.url().should('include', '/ghost/#/posts');
-        cy.screenshot('posts-list-before-unpublish'); 
+        cy.screenshot('posts-list-before-unpublish');
     }
 
     // When El usuario selecciona un post específico para despublicarlo.
@@ -399,7 +370,7 @@ class DeletePost extends Post {
 
     // Then El usuario verifica que el post ya no esté visible en la lista de posts
     thenPostShouldNotBeVisibleInPostsList(title) {
-        cy.get(this.postsListButton).click(); 
+        cy.get(this.postsListButton).click();
         cy.screenshot('returned-to-posts-list');
         cy.contains(this.postTitleSelector, title).should('not.exist');
         cy.screenshot('post-not-visible-in-list');
