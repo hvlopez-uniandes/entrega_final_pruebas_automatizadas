@@ -157,7 +157,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
 
     it('EP025 - Debería permitir crear un post con un link de youtube (Pseudo-aleatorio)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         createPost.whenUserCreatesPostWithYoutubeLink(`Post de ${url.title}`, url.url);
@@ -168,7 +168,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     
     it('EP026 - Debería permitir crear un post con un link de youtube (Aleatorio)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         const acciones = [
@@ -184,7 +184,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     
     it('EP027 - Debería permitir crear un post con un link de youtube (A-priori)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         createPost.whenUserCreatesPostWithoutMedia(`Post de ${url.title}`);
@@ -195,7 +195,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     
     it('EP028 - Debería permitir crear un post con un link de spotify (A-priori)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         createPost.whenUserCreatesPostWithSpotifyLink(`Post de ${url.title}`, url.url);
@@ -206,7 +206,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     
     it('EP029 - Debería permitir crear un post con un link de spotify (Pseudo-aleatorio)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         createPost.whenUserCreatesPostWithSpotifyLink(
@@ -222,7 +222,7 @@ describe('Escenarios de pruebas para la funcionalidad post - Ghost', () => {
     
     it('EP030 - Debería permitir crear un post con un link de spotify (Aleatorio)', () => {
         // Given
-        createPost.givenUserIsOnPostCreationPage();
+        createPost.givenUserIsOnPostCreation();
     
         // When
         const acciones = [
